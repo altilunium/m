@@ -21,8 +21,7 @@ function findGetParameter(parameterName) {
 if (findGetParameter('p')) {
     noteKey = findGetParameter('p')
     document.title = noteKey
-    document.querySelector("meta[property='og:title']").setAttribute("content",noteKey)
-    
+    document.querySelector("meta[property='og:title']").setAttribute("content",noteKey)    
 }
 else {
     alert("404 not found")
