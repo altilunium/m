@@ -20,13 +20,13 @@ function findGetParameter(parameterName) {
 
 if (findGetParameter('p')) {
     noteKey = findGetParameter('p')
+    document.title = noteKey
+    document.querySelector("meta[property='og:title']").setAttribute("content",noteKey)
     
 }
 else {
     alert("404 not found")
 }
-
-
 
 
 
@@ -50,21 +50,14 @@ window.onload = (event) => {
                 alert('404 not found')
             }
             else {
-                t.innerHTML = result;
-                mdToggle();
+                //t.innerHTML = result;
+                mdToggle(result);
             }
         })
     })
 
 
-    if (localStorage.getItem(noteKey)) {
-        t.innerHTML = localStorage.getItem(noteKey)
-        console.log('b')
-    }
-    var textarea = document.getElementById("main-txtbox");
-    textarea.spellcheck = false;
-    textarea.focus();
-    textarea.blur();
+  
     
 }
 
@@ -188,50 +181,26 @@ function Slimdown() {
 var sd = new Slimdown();
 
 
-function mdToggle() {
+function mdToggle(x) {
    
-    isEditable = !isEditable
     var textarea = document.getElementById('main-txtbox')
-    textarea.contentEditable = isEditable
-    if (isEditable) {
-
-        document.title = "Unlocked";
-        textarea.innerHTML = rawCE;
-        textarea.focus();
-
-        document.execCommand('selectAll', false, null);
-        document.getSelection().collapseToEnd();
-
-    }
-    else {
-        document.title = "Locked";
-        rawCE = textarea.innerHTML
-        console.log(rawCE)
-        var prcCE = rawCE.replace(/<div><br><\/div>/gi, "\n")
-        prcCE = prcCE.replace(/<div>/gi, "\n")
-        prcCE = prcCE.replace(/<\/div>/gi, "")
-        prcCE = prcCE.replace(/&gt;/gi, ">")
-        prcCE = prcCE.replace(/&lt;/gi, "<")
-        prcCE = prcCE.replace(/&nbsp;/gi, " ")
-        prcCE = prcCE.replace(/<br>/gi, "\n")
-        prcCE = prcCE.replace(/\n\n```/gi, "\n```")
-        console.log(prcCE)
-        //prcCE = parseMarkdown(prcCE)
-        //prcCE = sd.render(prcCE)
-        prcCE = marked.parse(prcCE)
-        textarea.innerHTML = prcCE
-        hljs.highlightAll();
-    }
-
-    setTimeout(function () {
-        if (findGetParameter('l')) {
-            document.title = findGetParameter('l');
-        }
-        else {
-            document.title = "rtnF md"
-        }
-        
-    }, 1000);
+    rawCE = x
+    console.log(rawCE)
+    var prcCE = rawCE.replace(/<div><br><\/div>/gi, "\n")
+    prcCE = prcCE.replace(/<div>/gi, "\n")
+    prcCE = prcCE.replace(/<\/div>/gi, "")
+    prcCE = prcCE.replace(/&gt;/gi, ">")
+    prcCE = prcCE.replace(/&lt;/gi, "<")
+    prcCE = prcCE.replace(/&nbsp;/gi, " ")
+    prcCE = prcCE.replace(/<br>/gi, "\n")
+    prcCE = prcCE.replace(/\n\n```/gi, "\n```")
+    console.log(prcCE)
+    //prcCE = parseMarkdown(prcCE)
+    //prcCE = sd.render(prcCE)
+    prcCE = marked.parse(prcCE)
+    textarea.innerHTML = prcCE
+    hljs.highlightAll();
+    
 
 }
 
